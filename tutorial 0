@@ -1,0 +1,23 @@
+!pip install rdkit
+import pandas as pd
+import numpy as np
+from rdkit import Chem
+from rdkit.Chem import Descriptors,rdMolDescriptors
+
+molecules=[
+    ('CCO','Ethanol'),
+    ('CCCCCCC','Heptane'),
+    ('c1ccccc1','Benzene'),
+    ('CC(=O)OC1=CC=CC=C1C(=O)O','aspirin')
+]
+for smiles,description in molecules:
+  mol=Chem.MolFromSmiles(smiles)
+
+  print(f"\n{description}")
+  print(f"Mol Weight: {Descriptors.ExactMolWt(mol):.1f}")
+  print(f"Mol LogP: {Descriptors.MolLogP(mol):.2f}")
+  print(f"Rotatable Bond: {Descriptors.NumRotatableBonds(mol)}")
+  print(f"Aromatic ring: {Descriptors.NumAromaticRings(mol)}")
+  print(f"complexity(Bertz): {Descriptors.BertzCT(mol):.0f}")
+  print(f"h-bond donor: {Descriptors.NumHDonors(mol)}")
+  print(f"h-bond acceptor: {Descriptors.NumHAcceptors(mol)}")
